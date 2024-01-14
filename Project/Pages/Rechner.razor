@@ -1,0 +1,60 @@
+﻿@page "/rechner"
+@using Project.Data
+<div class="center">
+<h1>Beträge</h1>
+</div>
+<div class="center">
+<p>Hier können Sie ihre Beträge Eingeben Die sie getätigt haben.</p>
+</div>
+<div class="center">
+<EditForm Model="@testModel" OnSubmit="@formSubmitted">
+    <DataAnnotationsValidator />
+    <p>Form Validate: @formStatus </p>
+    <div class="entry login">
+        <ValidationMessage For="@(() => testModel.Beschreibung)"></ValidationMessage>
+        <label for="name">Name: </label>
+        <InputText placeholder="Beschreibung" @bind-Value=@testModel.Beschreibung class="form-control" id="name"></InputText>
+    </div>
+    <div class="entry login">
+        <label for="name">Passwort: </label>
+        <ValidationMessage For="@(() => testModel.Betrag)"></ValidationMessage>
+        <InputNumber placeholder="Betrag" @bind-Value=@testModel.Betrag class="form-control" id="password" />
+    </div>
+    <input type="submit" class="btn btn-primary" value="Erstellen" />
+</EditForm>
+</div>
+@if (formStatus == "Hinzugefügt")
+{
+    <table class="table table-striped">
+        <tr>
+            <th>Beschreibung</th>
+            <td>@testModel.Beschreibung</td>
+            <th>Betrag CHF</th>
+            <td>@testModel.Betrag</td>
+        </tr>
+    </table>
+    <div class="center">
+    <p>Erstellung: @formStatus </p>
+    </div>
+}
+else
+{
+    <div class="center">
+    <p>Erstellung: @formStatus </p>
+    </div>
+}
+
+
+@code {
+    RechnerModel testModel = new RechnerModel();
+    string formStatus = "";
+    protected void formSubmitted(EditContext editContext)
+    {
+        bool formIsValid = editContext.Validate();
+        formStatus = formIsValid ? "Hinzugefügt" : "Felgeschlagen";
+    }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+}

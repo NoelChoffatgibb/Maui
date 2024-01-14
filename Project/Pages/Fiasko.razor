@@ -1,0 +1,40 @@
+﻿@page "/fiasko"
+@using Project.Data
+<div class="center">
+<h3>Fiasko Login</h3>
+</div>
+<div class="center">
+<EditForm Model="@testModel" OnSubmit="@formSubmitted">
+    <DataAnnotationsValidator />
+    <div class="entry login">
+        <ValidationMessage For="@(() => testModel.Name)"></ValidationMessage>
+        <label for="name">Name: </label>
+        <InputText placeholder="Username" @bind-Value=@testModel.Name class="form-control" id="name"></InputText>
+    </div>
+    <div class="entry login">
+        <label for="name">Fiasko Nummer: </label>
+        <ValidationMessage For="@(() => testModel.FiaskoNummer)"></ValidationMessage>
+        <InputNumber placeholder="FiaskoNummer" @bind-Value=@testModel.FiaskoNummer class="form-control" id="password"/>
+    </div>
+    <div class="entry login">
+        <label for="name">Ablauf Datum: </label>
+        <ValidationMessage For="@(() => testModel.AblaufDatum)"></ValidationMessage>
+        <InputDate @bind-Value=@testModel.AblaufDatum class="form-control" id="password"  />
+    </div>
+    <input type="submit" class="btn btn-primary" value="Anmelden" />
+</EditForm>
+</div>
+<br />
+<div class="center">
+<h4>Status: @formStatus </h4>
+</div>
+@code {
+    BasicFormModel testModel = new BasicFormModel();
+    string formStatus = "";
+    protected void formSubmitted(EditContext editContext)
+    {
+        bool formIsValid = editContext.Validate();
+        formStatus = formIsValid ? "Erfolgreich eingeloggt" : "Felgeschlagen";
+    }
+
+}

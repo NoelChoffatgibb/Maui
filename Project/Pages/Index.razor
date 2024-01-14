@@ -1,0 +1,42 @@
+﻿@page "/"
+@using Project.Data
+<h3 class="middle">Mathemat</h3>
+
+<p class="middle">Willkommen zu Mathemat Click auf der linken Seite auf das + Symbol um den Rechner für dein Budget zu sehen </p>
+<br />
+<p class="middle">Oder Klicke auf Fiasko falls du dich mit deinem Fiasko Konto anmelden willst</p>
+<br />
+<p class="middle">Bei Fragen Klicke auf FaQ.</p>
+<br />
+<p class="middle">Bitte Bewerten sie doch Unsere applikation</p>
+
+<div class="center">
+<form>
+    <input class="login entry" type="radio" id="1Stern" name="1_stern" value="1 Stern" />
+    <span class="oi oi-star"></span>
+    <label for="1Stern">1 Stern</label><br />
+    <input class="login entry" type="radio" id="2Stern" name="1_stern" value="2 Sterne" />
+    <span class="oi oi-star"></span>
+    <span class="oi oi-star"></span>
+    <label for="2Stern">2 Sterne</label><br />
+    <input class="login entry" type="radio" id="3Stern" name="1_stern" value="3 Sterne" />
+    <span class="oi oi-star"></span>
+    <span class="oi oi-star"></span>
+    <span class="oi oi-star"></span>
+    <label for="3Stern">3 Strene</label>
+    <br />
+    <input @onclick="OnSubmitNote" type="submit" class="btn btn-primary" value="Senden"/>
+</form>
+</div>
+@if(submit == true)
+{
+    <p>Danke für Ihr Feedback</p>
+}
+
+@code{
+    public bool submit = false;
+    protected void OnSubmitNote(MouseEventArgs mouseEventArgs)
+    {
+        submit = true;
+    }
+}

@@ -1,0 +1,75 @@
+﻿@page "/faq"
+@using Project.Data
+<h3 class="center">FaQ</h3>
+<h4>Ich habe mein Fiasko Password vergessen was tun?</h4>
+<p>Falls Sie Ihr Fiasko Password vergessen haben so wenden sie sich bitte an Fiasko selber und setzen Sie Ihr Password zurück.</p>
+<h4>Wie werde ich über Neuigkeiten zu dieser Applikation und Firma Informiert?</h4>
+<p>Durch das Anklicken des Knopfes "Newsletter Abonieren" werden Sie über Neuigkeiten der Firma sowie der Applikation per Mail informiert achten Sie darauf das Sie Ihre Email Adresse richtig schreiben.</p>
+<h4>Was für Daten werden gesamelt?</h4>
+<p>Wir sammeln grundsätzlich keine Daten. Es sei den sie abonieren den NewsLetter,dann sammeln wir ihre email adrresse.</p>
+<h4>Ich habe keine Email erhalten was Tun?</h4>
+<p>Vergewissern Sie sich das sie die richtige Email angegeben haben ausserdem müssen Sie wenn sie Ihre Email zum ersten mal angeben ihre Email bestätigen. Falls Sie immer noch Probleme haben so wenden sie sich bitte an Unseren <a href="">Support</a></p>
+
+<div class="entry center">    
+    <h2>Newsletter Abonieren</h2>
+</div>
+
+
+
+<div class="center">
+<EditForm Model="@testModel" OnSubmit="@formSubmitted">
+    <DataAnnotationsValidator />
+    <h2>Newsletter: @formStatus</h2>
+    <div class="entry login">
+        <label for="name">Email: </label>
+        <ValidationMessage For="@(() => testModel.Email)"></ValidationMessage>
+        <InputText placeholder="Email" @bind-Value=@testModel.Email class="form-control" id="email" />
+    </div>
+    <div class="entry login">
+        <label for="name">NewsLetter: </label>
+        <ValidationMessage For="@(() => testModel.News)"></ValidationMessage>
+        <InputSelect placeholder="Datenschutz" @bind-Value=@testModel.News class="form-control" id="datenschutz" >
+            <option selected value="">Select</option>
+
+            @foreach(var x in dataList)
+            {
+                <option value="@x">@x</option>
+            }
+
+        </InputSelect>
+    </div>
+    <input type="submit" class="btn btn-primary" value="NewsLetter Abonieren" />
+</EditForm>
+<br />
+</div>
+<div class="center">
+@if (formStatus == "Abonniert")
+{
+    <br />
+    <p>@testModel.News erhalten</p>
+}
+else
+{
+    <br />
+    <p>Kein NewsLetter bestellt</p>
+}
+</div>
+@code {
+    FaqModell testModel = new FaqModell();
+    List<string> dataList = new List<string>();
+    string formStatus = "";
+
+    protected override void OnInitialized()
+    {
+        dataList.Add("NewsLetter über beides");
+        dataList.Add("NewsLetter über die Applikation");
+        dataList.Add("NewsLetter über die Firma");
+    }
+
+    protected void formSubmitted(EditContext editContext)
+    {
+        bool formIsValid = editContext.Validate();
+        formStatus = formIsValid ? "Abonniert" : "felgeschlagen";
+    }
+   
+}
