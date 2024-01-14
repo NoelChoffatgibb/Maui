@@ -9,14 +9,13 @@
 <div class="center">
 <EditForm Model="@testModel" OnSubmit="@formSubmitted">
     <DataAnnotationsValidator />
-    <p>Form Validate: @formStatus </p>
     <div class="entry login">
         <ValidationMessage For="@(() => testModel.Beschreibung)"></ValidationMessage>
         <label for="name">Name: </label>
         <InputText placeholder="Beschreibung" @bind-Value=@testModel.Beschreibung class="form-control" id="name"></InputText>
     </div>
     <div class="entry login">
-        <label for="name">Passwort: </label>
+        <label for="name">Betrag: </label>
         <ValidationMessage For="@(() => testModel.Betrag)"></ValidationMessage>
         <InputNumber placeholder="Betrag" @bind-Value=@testModel.Betrag class="form-control" id="password" />
     </div>
